@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Chat</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0b141a;
+            padding: 0;
+            margin: 0;
+        }
+
+        .whatsapp-container {
+            max-width: 450px;
+            background-color: #0b141a;
+            position: relative;
+        }
+
+        .chat-header {
+            background-color: #202c33;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid #2a3942;
+        }
+
+        .back-button {
+            color: #aebac1;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-name {
+            font-size: 16px;
+            font-weight: 400;
+            color: #e9edef;
+            line-height: 21px;
+        }
+
+        .contact-status {
+            font-size: 13px;
+            color: #8696a0;
+            line-height: 18px;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 24px;
+            color: #aebac1;
+            font-size: 20px;
+        }
+
+        .chat-background {
+            background-color: #0b141a;
+            background-image:
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 10px,
+                    rgba(255,255,255,.02) 10px,
+                    rgba(255,255,255,.02) 20px
+                );
+            padding: 12px;
+            min-height: 500px;
+        }
+
+        .message {
+            max-width: 75%;
+            margin-bottom: 8px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .message.received {
+            align-self: flex-start;
+            background-color: #202c33;
+            border-radius: 0 8px 8px 8px;
+            padding: 6px 7px 8px 9px;
+        }
+
+        .message.sent {
+            align-self: flex-end;
+            background-color: #005c4b;
+            border-radius: 8px 0 8px 8px;
+            padding: 6px 7px 8px 9px;
+            margin-left: auto;
+        }
+
+        .message-text {
+            font-size: 14.2px;
+            line-height: 19px;
+            color: #e9edef;
+            word-wrap: break-word;
+            margin-bottom: 4px;
+        }
+
+        .message-footer {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 4px;
+            margin-top: 2px;
+        }
+
+        .message-time {
+            font-size: 11px;
+            color: #8696a0;
+        }
+
+        .message.sent .message-time {
+            color: #99d6c6;
+        }
+
+        .message-status {
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .check-icon {
+            color: #53bdeb;
+            font-size: 16px;
+            line-height: 1;
+        }
+
+        .date-divider {
+            text-align: center;
+            margin: 12px 0;
+        }
+
+        .date-badge {
+            display: inline-block;
+            background-color: #182229;
+            color: #8696a0;
+            padding: 5px 12px 6px;
+            border-radius: 7.5px;
+            font-size: 12.5px;
+            font-weight: 400;
+        }
+
+        .messages-container {
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body>
+    <div class="whatsapp-container">
+        <div class="chat-header">
+            <div class="back-button">‹</div>
+            <div class="avatar" id="avatar"></div>
+            <div class="contact-info">
+                <div class="contact-name" id="contactName"></div>
+                <div class="contact-status" id="contactStatus">online</div>
+            </div>
+            <div class="header-icons">
+                <span>📹</span>
+                <span>📞</span>
+                <span>⋮</span>
+            </div>
+        </div>
+
+        <div class="chat-background">
+            <div class="date-divider">
+                <span class="date-badge" id="dateBadge"></span>
+            </div>
+
+            <div class="messages-container" id="messagesContainer">
+                <!-- Messages will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Helper function to create message element
+        function createMessage(text, time, type, showCheck = true) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+
+            const textDiv = document.createElement('div');
+            textDiv.className = 'message-text';
+            textDiv.textContent = text;
+
+            const footerDiv = document.createElement('div');
+            footerDiv.className = 'message-footer';
+
+            const timeSpan = document.createElement('span');
+            timeSpan.className = 'message-time';
+            timeSpan.textContent = time;
+
+            footerDiv.appendChild(timeSpan);
+
+            if (type === 'sent' && showCheck) {
+                const statusSpan = document.createElement('span');
+                statusSpan.className = 'message-status';
+                statusSpan.innerHTML = '<span class="check-icon">✓✓</span>';
+                footerDiv.appendChild(statusSpan);
+            }
+
+            messageDiv.appendChild(textDiv);
+            messageDiv.appendChild(footerDiv);
+
+            return messageDiv;
+        }
+    </script>
+</body>
+</html>

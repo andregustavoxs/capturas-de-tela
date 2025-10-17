@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pip install:*)",
+      "Bash(dir:*)",
+      "Bash(py -m venv:*)",
+      "Bash(venv/Scripts/pip install:*)",
+      "Bash(venv/Scripts/python.exe -m pip:*)",
+      "Bash(venv/Scripts/playwright install:*)",
+      "Bash(venv/Scripts/python:*)",
+      "Read(//c/**)",
+      "Bash(del /Q datasetautenticos*.png)",
+      "Bash(del /Q datasetmanipulados*.png)",
+      "Bash(del /Q datasetlabels.csv)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
