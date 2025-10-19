@@ -341,28 +341,6 @@
     </div>
 </div>
 
-<h2>📁 Estrutura de Diretórios</h2>
-
-<div class="file-tree">
-<span class="folder">📁 dataset/</span><br>
-<span class="tree-line">├──</span> <span class="folder">📁 autenticos/</span><br>
-<span class="tree-line">│   ├──</span> <span class="file">twitter_000.png</span> ... <span class="file">twitter_019.png</span><br>
-<span class="tree-line">│   │   </span><span class="count"># 20 imagens do Twitter</span><br>
-<span class="tree-line">│   ├──</span> <span class="file">instagram_000.png</span> ... <span class="file">instagram_019.png</span><br>
-<span class="tree-line">│   │   </span><span class="count"># 20 imagens do Instagram</span><br>
-<span class="tree-line">│   └──</span> <span class="file">whatsapp_000.png</span> ... <span class="file">whatsapp_019.png</span><br>
-<span class="tree-line">│       </span><span class="count"># 20 imagens do WhatsApp</span><br>
-<span class="tree-line">├──</span> <span class="folder">📁 manipulados/</span><br>
-<span class="tree-line">│   ├──</span> <span class="file">twitter_000_manip_1.png</span> ... <span class="file">twitter_019_manip_3.png</span><br>
-<span class="tree-line">│   │   </span><span class="count"># 60 imagens alteradas do Twitter</span><br>
-<span class="tree-line">│   ├──</span> <span class="file">instagram_000_manip_1.png</span> ... <span class="file">instagram_019_manip_3.png</span><br>
-<span class="tree-line">│   │   </span><span class="count"># 60 imagens alteradas do Instagram</span><br>
-<span class="tree-line">│   └──</span> <span class="file">whatsapp_000_manip_1.png</span> ... <span class="file">whatsapp_019_manip_3.png</span><br>
-<span class="tree-line">│       </span><span class="count"># 60 imagens alteradas do WhatsApp</span><br>
-<span class="tree-line">└──</span> <span class="file">📄 labels.csv</span><br>
-<span class="tree-line">    </span><span class="count"># 240 linhas com informações sobre cada imagem</span>
-</div>
-
 <h2>🏷️ Arquivo de Labels (labels.csv)</h2>
 
 <p>Cada imagem do dataset tem informações detalhadas salvas em um arquivo CSV (planilha):</p>
@@ -460,7 +438,7 @@ whatsapp_003_manip_2.png,manipulado,message_change,whatsapp_003.png,whatsapp</co
 <div class="image-comparison">
     <div class="image-box authentic">
         <div class="image-label authentic">✅ AUTÊNTICO</div>
-        <img src="dataset/autenticos/twitter_000.png" alt="Twitter Original">
+        <img src="../src/dataset/autenticos/twitter_000.png" alt="Twitter Original">
         <div class="image-description">
             <strong>Texto:</strong> "Acabei de assistir esse filme e não consigo parar de pensar nele. Simplesmente incrível!"<br>
             <strong>Métricas:</strong> 467 Retweets, 1.7K Curtidas, 89.7K Visualizações
@@ -468,7 +446,7 @@ whatsapp_003_manip_2.png,manipulado,message_change,whatsapp_003.png,whatsapp</co
     </div>
     <div class="image-box manipulated">
         <div class="image-label manipulated">⚠️ MANIPULADO (text_change)</div>
-        <img src="dataset/manipulados/twitter_000_manip_2.png" alt="Twitter Manipulado">
+        <img src="../src/dataset/manipulados/twitter_000_manip_2.png" alt="Twitter Manipulado">
         <div class="image-description">
             <strong>Texto:</strong> <span class="diff-highlight">Diferente do original</span><br>
             <strong>Métricas:</strong> Inalteradas (467 Retweets, 1.7K Curtidas, 89.7K Visualizações)
@@ -480,7 +458,7 @@ whatsapp_003_manip_2.png,manipulado,message_change,whatsapp_003.png,whatsapp</co
 <div class="image-comparison">
     <div class="image-box authentic">
         <div class="image-label authentic">✅ AUTÊNTICO</div>
-        <img src="dataset/autenticos/instagram_005.png" alt="Instagram Original">
+        <img src="../src/dataset/autenticos/instagram_005.png" alt="Instagram Original">
         <div class="image-description">
             <strong>Caption:</strong> "Momentos perfeitos existem sim"<br>
             <strong>Curtidas:</strong> 39.0K
@@ -488,7 +466,7 @@ whatsapp_003_manip_2.png,manipulado,message_change,whatsapp_003.png,whatsapp</co
     </div>
     <div class="image-box manipulated">
         <div class="image-label manipulated">⚠️ MANIPULADO (metrics_change)</div>
-        <img src="dataset/manipulados/instagram_005_manip_1.png" alt="Instagram Manipulado">
+        <img src="../src/dataset/manipulados/instagram_005_manip_1.png" alt="Instagram Manipulado">
         <div class="image-description">
             <strong>Caption:</strong> Inalterada ("Momentos perfeitos existem sim")<br>
             <strong>Curtidas:</strong> <span class="diff-highlight">45.2K</span> (aumento de ~16%)
@@ -500,7 +478,7 @@ whatsapp_003_manip_2.png,manipulado,message_change,whatsapp_003.png,whatsapp</co
 <div class="image-comparison">
     <div class="image-box authentic">
         <div class="image-label authentic">✅ AUTÊNTICO</div>
-        <img src="dataset/autenticos/whatsapp_000.png" alt="WhatsApp Original">
+        <img src="../src/dataset/autenticos/whatsapp_000.png" alt="WhatsApp Original">
         <div class="image-description">
             <strong>Mensagens:</strong> "Desculpa a demora pra responder" / "Sem problema! Tava ocupado?"<br>
             <strong>Horários:</strong> 03:56, 08:11, 18:16
@@ -508,7 +486,7 @@ whatsapp_003_manip_2.png,manipulado,message_change,whatsapp_003.png,whatsapp</co
     </div>
     <div class="image-box manipulated">
         <div class="image-label manipulated">⚠️ MANIPULADO (time_change)</div>
-        <img src="dataset/manipulados/whatsapp_000_manip_1.png" alt="WhatsApp Manipulado">
+        <img src="../src/dataset/manipulados/whatsapp_000_manip_1.png" alt="WhatsApp Manipulado">
         <div class="image-description">
             <strong>Mensagens:</strong> Inalteradas<br>
             <strong>Horários:</strong> <span class="diff-highlight">01:06, 19:27, 11:46</span> (todos diferentes)
@@ -517,48 +495,28 @@ whatsapp_003_manip_2.png,manipulado,message_change,whatsapp_003.png,whatsapp</co
 </div>
 </div>
 
-<h2>⚙️ Processo de Geração</h2>
+<h2>📦 Estrutura de Diretórios</h2>
 
-<div class="method-section">
-<h3>1. Como são criadas as imagens originais</h3>
-<p>Para cada rede social (Twitter, Instagram, WhatsApp), o sistema faz:</p>
-<ul>
-    <li><strong>Cria dados falsos mas realistas</strong>: nomes de pessoas, textos de posts, números de curtidas</li>
-    <li><strong>Monta páginas web idênticas às redes sociais</strong>: com as mesmas cores, fontes e botões</li>
-    <li><strong>Tira uma foto da tela</strong>: captura a imagem no tamanho 600x800 pixels</li>
-    <li><strong>Guarda todas as informações</strong>: salva os dados usados para poder criar versões alteradas depois</li>
-</ul>
+<div class="file-tree">
+<span class="folder">📁 capturas-de-tela/</span><br>
+<span class="tree-line">├──</span> <span class="folder">📁 src/</span> <span class="comment"># Código-fonte modular</span><br>
+<span class="tree-line">│   ├──</span> <span class="file">__init__.py</span> <span class="comment"># Exportações públicas</span><br>
+<span class="tree-line">│   ├──</span> <span class="file">config.py</span> <span class="comment"># Configurações e constantes</span><br>
+<span class="tree-line">│   ├──</span> <span class="file">generators.py</span> <span class="comment"># Geração de dados fictícios</span><br>
+<span class="tree-line">│   ├──</span> <span class="file">screenshots.py</span> <span class="comment"># Criação de screenshots</span><br>
+<span class="tree-line">│   └──</span> <span class="file">manipulations.py</span> <span class="comment"># Manipulações</span><br>
+<span class="tree-line">├──</span> <span class="folder">📁 templates/</span> <span class="comment"># Templates HTML</span><br>
+<span class="tree-line">│   ├──</span> <span class="file">twitter.html</span><br>
+<span class="tree-line">│   ├──</span> <span class="file">instagram.html</span><br>
+<span class="tree-line">│   └──</span> <span class="file">whatsapp.html</span><br>
+<span class="tree-line">├──</span> <span class="folder">📁 dataset/</span> <span class="comment"># Dataset gerado</span><br>
+<span class="tree-line">│   ├──</span> <span class="folder">autenticos/</span><br>
+<span class="tree-line">│   ├──</span> <span class="folder">manipulados/</span><br>
+<span class="tree-line">│   └──</span> <span class="file">labels.csv</span><br>
+<span class="tree-line">├──</span> <span class="file">main.py</span> <span class="comment"># Script principal</span><br>
+<span class="tree-line">├──</span> <span class="file">requirements.txt</span><br>
+<span class="tree-line">└──</span> <span class="file">README.md</span>
 </div>
-
-<div class="method-section">
-<h3>2. Como são criadas as imagens alteradas</h3>
-<p>Para cada imagem original, o sistema cria 3 versões modificadas:</p>
-<ul>
-    <li><strong>Mantém a aparência geral</strong>: cores, formato e design continuam iguais</li>
-    <li><strong>Muda apenas algumas coisas</strong>: altera só partes específicas (texto, números, etc.)</li>
-    <li><strong>Reconstrói a página</strong>: monta a página novamente com as informações modificadas</li>
-    <li><strong>Fica parecendo real</strong>: as mudanças são sutis e difíceis de perceber</li>
-</ul>
-</div>
-
-<h2>🔧 Especificações Técnicas</h2>
-
-<h3>Informações sobre as imagens</h3>
-<ul>
-    <li><strong>Tipo de arquivo</strong>: PNG (não perde qualidade)</li>
-    <li><strong>Tamanho</strong>: 600x800 pixels (mesmo para todas)</li>
-    <li><strong>Cores</strong>: Coloridas (24-bit RGB)</li>
-    <li><strong>Peso do arquivo</strong>: Entre 150-300 KB cada</li>
-</ul>
-
-<h3>O que cada imagem contém</h3>
-<ul>
-    <li><strong>Perfil do usuário</strong>: nome, @ (arroba), foto de perfil colorida, selo de verificado</li>
-    <li><strong>Texto do post</strong>: mensagens realistas de cada rede social</li>
-    <li><strong>Números de interação</strong>: curtidas, compartilhamentos, visualizações</li>
-    <li><strong>Horários</strong>: quando foi publicado (1h atrás, 3 dias, etc.)</li>
-    <li><strong>Visual</strong>: cores, botões e layout idênticos às redes sociais reais</li>
-</ul>
 
 <h2>📊 Como estão organizadas as imagens</h2>
 
