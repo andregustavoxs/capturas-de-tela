@@ -29,31 +29,31 @@ Criar um dataset completo e realista para treinar modelos supervisionados (KNN, 
 ### Tipos de Manipulações
 
 #### Twitter/X
-- Alteração de métricas (curtidas, retweets, visualizações)
-- Modificação do texto do tweet
-- Adição/remoção de badge de verificado
+- **Alteração de métricas** (curtidas, retweets, visualizações): ±50% de variação
+- **Modificação do texto**: Tweet alterado (garantidamente diferente do original)
+- **Adição/remoção de badge de verificado**
 
 #### Instagram
-- Alteração de contagem de curtidas
-- Modificação da caption
-- Adição/remoção de badge de verificado
+- **Alteração de curtidas**: ±50% de variação
+- **Modificação da legenda (caption)**: Caption alterada (garantidamente diferente da original)
+- **Adição/remoção de badge de verificado**
 
 #### WhatsApp
-- Alteração do conteúdo das mensagens
-- Modificação do nome do contato
-- Mudança de horários
+- **Mudança de horários**: Todos os horários das mensagens são recriados aleatoriamente
+- **Alteração do conteúdo das mensagens**: Conversa completa trocada (garantidamente diferente da original)
+- **Modificação do nome do contato**: Nome alterado no cabeçalho
 
 ### Arquivo labels.csv
 
 Contém metadados completos de cada imagem:
 
-| Coluna | Descrição |
-|--------|-----------|
-| `filename` | Nome do arquivo da imagem |
-| `class` | `autentico` ou `manipulado` |
-| `manipulation_type` | Tipo específico de manipulação aplicada |
-| `original_filename` | Nome do screenshot autêntico relacionado |
-| `social_network` | Rede social (twitter, instagram, whatsapp) |
+| Coluna | Descrição | Valores Possíveis |
+|--------|-----------|-------------------|
+| `filename` | Nome do arquivo da imagem | `twitter_000.png`, `instagram_005_manip_2.png`, etc |
+| `class` | Se a imagem é autêntica ou manipulada | `autentico` ou `manipulado` |
+| `manipulation_type` | Tipo específico de manipulação aplicada | `none`, `metrics_change`, `text_change`, `caption_change`, `message_change`, `time_change`, `verification_change`, `contact_change` |
+| `original_filename` | Nome do screenshot autêntico relacionado | `twitter_005.png`, `instagram_010.png`, etc |
+| `social_network` | Rede social da imagem | `twitter`, `instagram`, `whatsapp` |
 
 ## 🚀 Instalação
 
@@ -88,24 +88,32 @@ python main.py
 O processo levará aproximadamente **5-10 minutos** e você verá o progresso em tempo real:
 
 ```
-🚀 Iniciando geração do dataset...
-📊 Serão gerados: 60 autênticos + 180 manipulados
-📁 Total: 240 imagens
+>> Iniciando geracao do dataset...
+>> Serao gerados: 60 autenticos + 180 manipulados
+>> Total: 240 imagens
 
-📱 Gerando TWITTER...
-  ✓ twitter_000.png
-    ↳ twitter_000_manip_1.png (metrics_change)
-    ↳ twitter_000_manip_2.png (text_change)
-    ↳ twitter_000_manip_3.png (verification_change)
+>> Gerando TWITTER...
+  [OK] twitter_000.png
+    -> twitter_000_manip_1.png (metrics_change)
+    -> twitter_000_manip_2.png (text_change)
+    -> twitter_000_manip_3.png (verification_change)
   ...
 
-📱 Gerando INSTAGRAM...
+>> Gerando INSTAGRAM...
+  [OK] instagram_000.png
+    -> instagram_000_manip_1.png (metrics_change)
+    -> instagram_000_manip_2.png (caption_change)
+    -> instagram_000_manip_3.png (verification_change)
   ...
 
-📱 Gerando WHATSAPP...
+>> Gerando WHATSAPP...
+  [OK] whatsapp_000.png
+    -> whatsapp_000_manip_1.png (time_change)
+    -> whatsapp_000_manip_2.png (message_change)
+    -> whatsapp_000_manip_3.png (contact_change)
   ...
 
-✅ Dataset gerado com sucesso!
+[SUCESSO] Dataset gerado com sucesso!
 ```
 
 ### Resultado
@@ -168,58 +176,40 @@ MANIPULATIONS_PER_POST = 3
 - Formato PNG para preservar qualidade
 
 ### Manipulações
-- Balanceadas (50% sutis, 50% moderadas)
-- Alterações de métricas: ±20-50%
-- Textos modificados usando Faker
-- Badges de verificação adicionados/removidos
-- Nomes e usernames alterados
+- **Alterações de métricas**: Quantidade de Curtidas
+- **Textos modificados**: Usando Faker com **garantia de diferença** do original
+  - Twitter: Tweets sempre diferentes
+  - Instagram: Captions sempre diferentes
+  - WhatsApp: Conversas sempre diferentes
+- **Verificação de diferença**: Loop automático que regenera até obter texto diferente
+- **Badges de verificação**: Adicionados/removidos aleatoriamente
+- **Nomes e contatos**: Alterados usando Faker
 
-## 🤖 Uso para Machine Learning
+## ✅ Garantias de Qualidade
 
-### Exemplos de Features para Extração
+### Textos Sempre Diferentes
 
-Este dataset foi projetado para permitir extração de features como:
-
-- **LBP (Local Binary Patterns)**: Detectar inconsistências de textura
-- **Análise RGB/HSV**: Identificar anomalias de cor
-- **Haralick**: Analisar características de textura
-- **Detecção de Bordas**: Encontrar artefatos de edição
-- **Análise de Fontes**: Detectar inconsistências tipográficas
-- **Metadados**: Padrões em números e timestamps
-
-### Exemplo de Carregamento em Python
+O sistema implementa verificação automática para garantir que **100% das manipulações de texto sejam realmente diferentes dos originais**:
 
 ```python
-import pandas as pd
-from PIL import Image
-import numpy as np
-
-# Carregar labels
-df = pd.read_csv('dataset/labels.csv')
-
-# Filtrar apenas Twitter
-twitter_df = df[df['social_network'] == 'twitter']
-
-# Carregar uma imagem
-img_path = f"dataset/{twitter_df.iloc[0]['class']}s/{twitter_df.iloc[0]['filename']}"
-img = Image.open(img_path)
-img_array = np.array(img)
-
-# Extrair features...
+# Exemplo de verificação implementada
+new_text = generate_text()
+while new_text == original_text:
+    new_text = generate_text()
+# Garante que new_text != original_text
 ```
 
-## 🔬 Validação do Dataset
+**Benefícios:**
+- Elimina a probabilidade de 5% (1/20) de colisão aleatória
+- Evita falsos positivos no treinamento
+- Garante qualidade consistente do dataset
 
-Recomendações para uso em pesquisa:
+### Tipos de Manipulação por Plataforma
 
-1. **Split Treino/Teste**: 80/20 ou 70/30
-2. **Validação Cruzada**: K-fold para robustez
-3. **Métricas**: Acurácia, Precisão, Recall, F1-Score
-4. **Balanceamento**: Dataset já vem balanceado (1:3 ratio)
+| Plataforma | Tipo 1 (manip_1) | Tipo 2 (manip_2) | Tipo 3 (manip_3) |
+|------------|------------------|------------------|------------------|
+| **Twitter** | `metrics_change` | `text_change` | `verification_change` |
+| **Instagram** | `metrics_change` | `caption_change` | `verification_change` |
+| **WhatsApp** | `time_change` | `message_change` | `contact_change` |
 
-## ⚠️ Limitações
-
-- Screenshots são simulações de alta fidelidade, não capturas reais
-- Manipulações são programáticas, não editadas manualmente
-- Não inclui manipulações de imagem avançadas (deepfakes, etc)
-- Focado em alterações de texto e métricas
+**Observação:** WhatsApp usa `time_change` pois não possui métricas públicas como as outras plataformas.
