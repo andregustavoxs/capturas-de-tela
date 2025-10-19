@@ -155,7 +155,21 @@ REAL_CONVERSATIONS = [
 ]
 
 def generate_avatar_color() -> str:
-    """Gera uma cor aleatória para o avatar"""
+    """
+    Gera uma cor aleatória para o avatar das redes sociais.
+
+    Esta função seleciona uma cor hexadecimal aleatória de uma lista predefinida
+    que contém cores modernas e vibrantes comumente usadas em interfaces de
+    redes sociais para avatares de usuários.
+
+    Returns:
+        str: Código de cor hexadecimal (ex: '#1DA1F2', '#E1306C')
+
+    Exemplo:
+        >>> color = generate_avatar_color()
+        >>> print(color)
+        '#8B5CF6'
+    """
     colors = [
         '#1DA1F2', '#E1306C', '#25D366', '#FF6900', '#8B5CF6',
         '#EC4899', '#10B981', '#F59E0B', '#6366F1', '#EF4444',
@@ -165,7 +179,29 @@ def generate_avatar_color() -> str:
 
 
 def get_initials(name: str) -> str:
-    """Retorna as iniciais de um nome"""
+    """
+    Extrai as iniciais de um nome completo para usar em avatares.
+
+    Esta função processa um nome completo e retorna as primeiras letras
+    dos dois primeiros nomes em maiúsculo. É útil para criar avatares
+    com texto quando não há imagem de perfil disponível.
+
+    Args:
+        name (str): Nome completo do usuário
+
+    Returns:
+        str: Iniciais em maiúsculo (ex: 'JD' para 'João da Silva')
+             Se o nome tiver apenas uma palavra, retorna a primeira letra
+             Se o nome estiver vazio, retorna '?'
+
+    Exemplo:
+        >>> get_initials('Maria Santos')
+        'MS'
+        >>> get_initials('João')
+        'J'
+        >>> get_initials('')
+        '?'
+    """
     parts = name.split()
     if len(parts) >= 2:
         return f"{parts[0][0]}{parts[1][0]}".upper()
@@ -173,7 +209,26 @@ def get_initials(name: str) -> str:
 
 
 def generate_username(name: str) -> str:
-    """Gera um username baseado no nome"""
+    """
+    Gera um nome de usuário (username) realista baseado no nome real.
+
+    Esta função cria usernames que simulam os padrões comuns das redes sociais:
+    - Remove espaços e converte para minúsculo
+    - Adiciona sufixos aleatórios como números ou texto
+    - Inclui o símbolo '@' no início
+
+    Args:
+        name (str): Nome real do usuário
+
+    Returns:
+        str: Username gerado com '@' (ex: '@joaosilva123', '@maria_oficial')
+
+    Exemplo:
+        >>> generate_username('João Silva')
+        '@joaosilva_real'
+        >>> generate_username('Maria Santos')
+        '@mariasantosbr'
+    """
     name_parts = name.lower().replace(' ', '')
     number = random.randint(1, 999)
     suffixes = ['_oficial', '_real', 'br', str(number), f'{number}']
@@ -181,22 +236,103 @@ def generate_username(name: str) -> str:
 
 
 def generate_tweet_text() -> str:
-    """Retorna um tweet realista da lista"""
+    """
+    Seleciona aleatoriamente um texto de tweet realista.
+
+    Esta função escolhe um tweet da lista predefinida REAL_TWEETS,
+    que contém textos autênticos e variados que simulam conversas
+    reais do Twitter brasileiro, incluindo diversos temas como:
+    - Cotidiano e reflexões pessoais
+    - Comentários sobre política e sociedade
+    - Experiências do dia a dia
+    - Opiniões sobre entretenimento
+
+    Returns:
+        str: Texto de tweet realista em português
+
+    Exemplo:
+        >>> tweet = generate_tweet_text()
+        >>> print(tweet)
+        'Acabei de assistir esse filme e não consigo parar de pensar nele.'
+    """
     return random.choice(REAL_TWEETS)
 
 
 def generate_instagram_caption() -> str:
-    """Retorna uma caption realista da lista"""
+    """
+    Seleciona aleatoriamente uma legenda (caption) realista para Instagram.
+
+    Esta função escolhe uma caption da lista REAL_CAPTIONS, que contém
+    legendas típicas do Instagram brasileiro com características como:
+    - Frases inspiracionais e motivacionais
+    - Reflexões sobre momentos do dia
+    - Uso de emojis apropriados
+    - Tom positivo e pessoal
+    - Linguagem casual e acessível
+
+    Returns:
+        str: Caption realista com emojis incluídos
+
+    Exemplo:
+        >>> caption = generate_instagram_caption()
+        >>> print(caption)
+        'Momentos simples são os melhores ☀️'
+    """
     return random.choice(REAL_CAPTIONS)
 
 
 def generate_whatsapp_messages() -> List[Tuple[str, str]]:
-    """Retorna uma conversa realista da lista"""
+    """
+    Seleciona uma conversa realista do WhatsApp da lista predefinida.
+
+    Esta função retorna uma sequência de mensagens que simula uma conversa
+    natural entre duas pessoas, incluindo:
+    - Diálogos cotidianos e naturais
+    - Alternância entre mensagens enviadas e recebidas
+    - Contextos variados (trabalho, amizade, família)
+    - Linguagem informal típica do WhatsApp
+
+    Returns:
+        List[Tuple[str, str]]: Lista de tuplas onde cada tupla contém:
+            - str: Texto da mensagem
+            - str: Tipo da mensagem ('sent' ou 'received')
+
+    Exemplo:
+        >>> conversa = generate_whatsapp_messages()
+        >>> print(conversa)
+        [('E aí, conseguiu resolver aquele problema?', 'received'),
+         ('Consegui sim! Deu tudo certo no final', 'sent')]
+    """
     return random.choice(REAL_CONVERSATIONS)
 
 
 def format_number(num: int) -> str:
-    """Formata números para display (1.2K, 5.3M, etc)"""
+    """
+    Formata números grandes para exibição compacta nas redes sociais.
+
+    Esta função converte números inteiros para o formato abreviado
+    usado nas redes sociais, facilitando a leitura de métricas como
+    curtidas, visualizações e compartilhamentos.
+
+    Regras de formatação:
+    - Números >= 1.000.000: formato 'X.XM' (milhões)
+    - Números >= 1.000: formato 'X.XK' (milhares)
+    - Números < 1.000: exibição normal
+
+    Args:
+        num (int): Número inteiro a ser formatado
+
+    Returns:
+        str: Número formatado com sufixo apropriado
+
+    Exemplo:
+        >>> format_number(1500)
+        '1.5K'
+        >>> format_number(2500000)
+        '2.5M'
+        >>> format_number(999)
+        '999'
+    """
     if num >= 1_000_000:
         return f"{num / 1_000_000:.1f}M"
     elif num >= 1_000:
@@ -205,7 +341,34 @@ def format_number(num: int) -> str:
 
 
 def generate_timestamp(days_ago: int = None) -> str:
-    """Gera timestamp relativo"""
+    """
+    Gera um timestamp relativo realista para posts de redes sociais.
+
+    Esta função cria timestamps que simulam como as redes sociais
+    exibem o tempo de publicação de posts, usando formatos relativos
+    para datas recentes e formato absoluto para datas mais antigas.
+
+    Formatos gerados:
+    - Posts do mesmo dia: 'Xh' (horas atrás)
+    - Posts de ontem: '1d'
+    - Posts da semana: 'Xd' (dias atrás)
+    - Posts mais antigos: 'DD/MM/AAAA'
+
+    Args:
+        days_ago (int, optional): Número específico de dias atrás.
+                                 Se None, será gerado aleatoriamente (0-7 dias)
+
+    Returns:
+        str: Timestamp formatado
+
+    Exemplo:
+        >>> generate_timestamp(0)
+        '5h'
+        >>> generate_timestamp(1)
+        '1d'
+        >>> generate_timestamp(15)
+        '04/10/2024'
+    """
     if days_ago is None:
         days_ago = random.randint(0, 7)
 
@@ -222,7 +385,23 @@ def generate_timestamp(days_ago: int = None) -> str:
 
 
 def generate_time() -> str:
-    """Gera horário para mensagens do WhatsApp"""
+    """
+    Gera um horário aleatório para mensagens do WhatsApp.
+
+    Esta função cria horários no formato HH:MM que são exibidos
+    nas mensagens do WhatsApp. O horário é gerado aleatoriamente
+    dentro de um dia completo (00:00 a 23:59).
+
+    Returns:
+        str: Horário no formato 'HH:MM' com zero à esquerda quando necessário
+
+    Exemplo:
+        >>> time = generate_time()
+        >>> print(time)
+        '14:30'
+        >>> print(generate_time())
+        '09:05'
+    """
     hour = random.randint(0, 23)
     minute = random.randint(0, 59)
     return f"{hour:02d}:{minute:02d}"
@@ -233,7 +412,33 @@ def generate_time() -> str:
 # ============================================================================
 
 async def create_twitter_screenshot(page: Page, filename: str) -> Dict:
-    """Cria screenshot de um post do Twitter"""
+    """
+    Cria um screenshot autêntico de um post do Twitter.
+
+    Esta função assíncrona gera uma imagem de um tweet realista usando
+    o template HTML do Twitter. Ela cria dados fictícios mas verossímeis
+    para todos os elementos do post e renderiza usando Playwright.
+
+    Elementos gerados:
+    - Perfil do usuário (nome, username, avatar, verificação)
+    - Conteúdo do tweet
+    - Métricas de engajamento (curtidas, retweets, visualizações)
+    - Timestamp realista
+
+    Args:
+        page (Page): Instância da página do Playwright para renderização
+        filename (str): Caminho onde salvar o screenshot
+
+    Returns:
+        Dict: Dicionário com todos os dados gerados para o tweet,
+              usado posteriormente para criar versões manipuladas
+
+    Exemplo:
+        async def exemplo():
+            data = await create_twitter_screenshot(page, 'tweet_001.png')
+            print(data['name'])  # 'João Silva'
+            print(data['like_count'])  # 5420
+    """
 
     # Dados fictícios
     name = fake.name()
@@ -295,7 +500,33 @@ async def create_twitter_screenshot(page: Page, filename: str) -> Dict:
 
 
 async def create_instagram_screenshot(page: Page, filename: str) -> Dict:
-    """Cria screenshot de um post do Instagram"""
+    """
+    Cria um screenshot autêntico de um post do Instagram.
+
+    Esta função assíncrona gera uma imagem de um post realista do Instagram
+    usando o template HTML correspondente. Simula a aparência típica de
+    posts da rede social com todos os elementos visuais.
+
+    Elementos gerados:
+    - Perfil do usuário (nome, username, avatar, badge de verificação)
+    - Caption/legenda do post
+    - Métricas (curtidas, comentários)
+    - Timestamp e elementos de interface
+
+    Args:
+        page (Page): Instância da página do Playwright para renderização
+        filename (str): Caminho onde salvar o screenshot
+
+    Returns:
+        Dict: Dicionário com todos os dados gerados para o post,
+              usado posteriormente para criar versões manipuladas
+
+    Exemplo:
+        async def exemplo():
+            data = await create_instagram_screenshot(page, 'insta_001.png')
+            print(data['username'])  # 'maria_santos123'
+            print(data['like_count'])  # 1250
+    """
 
     # Dados fictícios
     name = fake.name()
@@ -346,7 +577,34 @@ async def create_instagram_screenshot(page: Page, filename: str) -> Dict:
 
 
 async def create_whatsapp_screenshot(page: Page, filename: str) -> Dict:
-    """Cria screenshot de uma conversa do WhatsApp"""
+    """
+    Cria um screenshot autêntico de uma conversa do WhatsApp.
+
+    Esta função assíncrona gera uma imagem de uma conversa realista
+    do WhatsApp usando o template HTML correspondente. Simula a interface
+    típica da aplicação com múltiplas mensagens em uma conversa.
+
+    Elementos gerados:
+    - Cabeçalho com nome e avatar do contato
+    - Sequência de mensagens (enviadas e recebidas)
+    - Horários individuais para cada mensagem
+    - Badge de data da conversa
+    - Layout autêntico da interface do WhatsApp
+
+    Args:
+        page (Page): Instância da página do Playwright para renderização
+        filename (str): Caminho onde salvar o screenshot
+
+    Returns:
+        Dict: Dicionário com todos os dados gerados para a conversa,
+              usado posteriormente para criar versões manipuladas
+
+    Exemplo:
+        async def exemplo():
+            data = await create_whatsapp_screenshot(page, 'whats_001.png')
+            print(data['contact_name'])  # 'Ana Costa'
+            print(len(data['messages']))  # 4
+    """
 
     # Dados fictícios
     contact_name = fake.name()
@@ -395,7 +653,33 @@ async def create_whatsapp_screenshot(page: Page, filename: str) -> Dict:
 # ============================================================================
 
 async def manipulate_twitter(page: Page, original_data: Dict, manipulation_type: str) -> Dict:
-    """Aplica manipulação em um post do Twitter"""
+    """
+    Aplica manipulações específicas em um post autêntico do Twitter.
+
+    Esta função cria versões manipuladas de tweets originais para treinar
+    modelos de detecção de conteúdo falso. As manipulações simulam alterações
+    comuns feitas em screenshots para desinformação ou fraude.
+
+    Tipos de manipulação disponíveis:
+    - 'metrics_change': Altera números de curtidas, retweets e visualizações
+    - 'text_change': Substitui o texto do tweet por outro conteúdo
+    - 'verification_change': Adiciona/remove o selo de verificação
+    - 'username_change': Modifica ligeiramente o username
+    - 'combined': Combina múltiplas alterações simultaneamente
+
+    Args:
+        page (Page): Instância da página do Playwright para renderização
+        original_data (Dict): Dados originais do tweet autêntico
+        manipulation_type (str): Tipo de manipulação a ser aplicada
+
+    Returns:
+        Dict: Dados modificados após aplicação da manipulação
+
+    Exemplo:
+        async def exemplo():
+            manipulated = await manipulate_twitter(page, original, 'metrics_change')
+            # Métricas alteradas em ±20-50% dos valores originais
+    """
 
     data = original_data.copy()
 
@@ -407,8 +691,11 @@ async def manipulate_twitter(page: Page, original_data: Dict, manipulation_type:
         data['view_count'] = int(data['view_count'] * factor)
 
     elif manipulation_type == "text_change":
-        # Alterar texto
-        data['text'] = generate_tweet_text()
+        # Garantir que o texto seja diferente do original
+        new_text = generate_tweet_text()
+        while new_text == original_data['text']:
+            new_text = generate_tweet_text()
+        data['text'] = new_text
 
     elif manipulation_type == "verification_change":
         # Inverter status de verificação
@@ -450,7 +737,33 @@ async def manipulate_twitter(page: Page, original_data: Dict, manipulation_type:
 
 
 async def manipulate_instagram(page: Page, original_data: Dict, manipulation_type: str) -> Dict:
-    """Aplica manipulação em um post do Instagram"""
+    """
+    Aplica manipulações específicas em um post autêntico do Instagram.
+
+    Esta função cria versões manipuladas de posts originais do Instagram
+    para dataset de treinamento de detecção de conteúdo manipulado.
+    As alterações simulam modificações típicas em screenshots fraudulentos.
+
+    Tipos de manipulação disponíveis:
+    - 'metrics_change': Altera apenas o número de curtidas
+    - 'caption_change': Substitui a legenda por outra diferente
+    - 'verification_change': Adiciona/remove o badge de verificação
+    - 'username_change': Modifica o username do perfil
+    - 'combined': Aplica múltiplas alterações em conjunto
+
+    Args:
+        page (Page): Instância da página do Playwright para renderização
+        original_data (Dict): Dados originais do post autêntico
+        manipulation_type (str): Tipo de manipulação a ser aplicada
+
+    Returns:
+        Dict: Dados modificados após aplicação da manipulação
+
+    Exemplo:
+        async def exemplo():
+            manipulated = await manipulate_instagram(page, original, 'caption_change')
+            # Caption foi substituída por uma diferente da lista
+    """
 
     data = original_data.copy()
 
@@ -459,7 +772,11 @@ async def manipulate_instagram(page: Page, original_data: Dict, manipulation_typ
         data['like_count'] = int(data['like_count'] * factor)
 
     elif manipulation_type == "caption_change":
-        data['caption'] = generate_instagram_caption()
+        # Garantir que a caption seja diferente da original
+        new_caption = generate_instagram_caption()
+        while new_caption == original_data['caption']:
+            new_caption = generate_instagram_caption()
+        data['caption'] = new_caption
 
     elif manipulation_type == "verification_change":
         data['verified'] = not data['verified']
@@ -470,7 +787,11 @@ async def manipulate_instagram(page: Page, original_data: Dict, manipulation_typ
     elif manipulation_type == "combined":
         factor = random.uniform(0.7, 1.3)
         data['like_count'] = int(data['like_count'] * factor)
-        data['caption'] = generate_instagram_caption()
+        # Garantir que a caption seja diferente da original
+        new_caption = generate_instagram_caption()
+        while new_caption == original_data['caption']:
+            new_caption = generate_instagram_caption()
+        data['caption'] = new_caption
 
     # Carregar template e aplicar dados manipulados
     template_path = TEMPLATES_DIR / "instagram.html"
@@ -494,13 +815,41 @@ async def manipulate_instagram(page: Page, original_data: Dict, manipulation_typ
 
 
 async def manipulate_whatsapp(page: Page, original_data: Dict, manipulation_type: str) -> Dict:
-    """Aplica manipulação em uma conversa do WhatsApp"""
+    """
+    Aplica manipulações específicas em uma conversa autêntica do WhatsApp.
+
+    Esta função cria versões manipuladas de conversas originais do WhatsApp
+    para treinar modelos de detecção de screenshots alterados. As modificações
+    simulam alterações comuns em conversas falsificadas.
+
+    Tipos de manipulação disponíveis:
+    - 'message_change': Substitui toda a conversa por mensagens diferentes
+    - 'contact_change': Altera o nome do contato no cabeçalho
+    - 'time_change': Mensagens recebem novos horários na recriação
+    - 'combined': Combina alteração de contato e mensagens
+
+    Args:
+        page (Page): Instância da página do Playwright para renderização
+        original_data (Dict): Dados originais da conversa autêntica
+        manipulation_type (str): Tipo de manipulação a ser aplicada
+
+    Returns:
+        Dict: Dados modificados após aplicação da manipulação
+
+    Exemplo:
+        async def exemplo():
+            manipulated = await manipulate_whatsapp(page, original, 'contact_change')
+            print(manipulated['contact_name'])  # 'Pedro Lima' (nome diferente do original)
+    """
 
     data = original_data.copy()
 
     if manipulation_type == "message_change":
-        # Alterar texto de uma mensagem
-        data['messages'] = generate_whatsapp_messages()
+        # Garantir que as mensagens sejam diferentes das originais
+        new_messages = generate_whatsapp_messages()
+        while new_messages == original_data['messages']:
+            new_messages = generate_whatsapp_messages()
+        data['messages'] = new_messages
 
     elif manipulation_type == "contact_change":
         # Alterar nome do contato
@@ -508,13 +857,18 @@ async def manipulate_whatsapp(page: Page, original_data: Dict, manipulation_type
         data['initials'] = get_initials(data['contact_name'])
 
     elif manipulation_type == "time_change":
-        # As mensagens terão novos horários quando recriadas
+        # Os horários são automaticamente regenerados quando as mensagens são recriadas
+        # Cada mensagem receberá um novo horário aleatório via generate_time()
         pass
 
     elif manipulation_type == "combined":
         data['contact_name'] = fake.name()
         data['initials'] = get_initials(data['contact_name'])
-        data['messages'] = generate_whatsapp_messages()
+        # Garantir que as mensagens sejam diferentes das originais
+        new_messages = generate_whatsapp_messages()
+        while new_messages == original_data['messages']:
+            new_messages = generate_whatsapp_messages()
+        data['messages'] = new_messages
 
     # Carregar template e aplicar dados manipulados
     template_path = TEMPLATES_DIR / "whatsapp.html"
@@ -545,7 +899,40 @@ async def manipulate_whatsapp(page: Page, original_data: Dict, manipulation_type
 # ============================================================================
 
 async def generate_dataset():
-    """Gera todo o dataset de screenshots"""
+    """
+    Função principal que orquestra a geração completa do dataset.
+
+    Esta função assíncrona coordena todo o processo de criação do dataset
+    de screenshots de redes sociais, incluindo:
+
+    Processo de geração:
+    1. Inicializa o browser Playwright para renderização
+    2. Para cada plataforma (Twitter, Instagram, WhatsApp):
+       - Cria screenshots autênticos usando templates HTML
+       - Gera múltiplas versões manipuladas de cada screenshot
+       - Salva metadados para labels do dataset
+    3. Exporta arquivo CSV com labels para treinamento ML
+
+    Estrutura do dataset gerado:
+    - Pasta 'autenticos/': Screenshots originais não modificados
+    - Pasta 'manipulados/': Versões alteradas dos originais
+    - Arquivo 'labels.csv': Metadados e labels para cada imagem
+
+    Configurações (definidas nas constantes):
+    - POSTS_PER_PLATFORM: Quantos posts criar por rede social
+    - MANIPULATIONS_PER_POST: Quantas versões manipuladas por post
+
+    Raises:
+        Exception: Qualquer erro na geração dos screenshots ou templates
+
+    Exemplo de uso:
+        async def main():
+            await generate_dataset()
+            # Output:
+            # >> Iniciando geracao do dataset...
+            # >> Serao gerados: 60 autenticos + 180 manipulados
+            # [SUCESSO] Dataset gerado com sucesso!
+    """
 
     print(">> Iniciando geracao do dataset...")
     print(f">> Serao gerados: {POSTS_PER_PLATFORM * 3} autenticos + {POSTS_PER_PLATFORM * 3 * MANIPULATIONS_PER_POST} manipulados")
@@ -581,11 +968,24 @@ async def generate_dataset():
                 print(f"  [OK] {authentic_filename.name}")
 
                 # Criar manipulações
-                manipulation_types = [
-                    "metrics_change",
-                    "text_change" if platform_name != "whatsapp" else "message_change",
-                    "verification_change" if platform_name != "whatsapp" else "contact_change",
-                ]
+                if platform_name == "twitter":
+                    manipulation_types = [
+                        "metrics_change",
+                        "text_change",
+                        "verification_change",
+                    ]
+                elif platform_name == "instagram":
+                    manipulation_types = [
+                        "metrics_change",
+                        "caption_change",
+                        "verification_change",
+                    ]
+                elif platform_name == "whatsapp":
+                    manipulation_types = [
+                        "time_change",
+                        "message_change",
+                        "contact_change",
+                    ]
 
                 for j, manip_type in enumerate(manipulation_types):
                     manipulated_filename = MANIPULATED_DIR / f"{platform_name}_{i:03d}_manip_{j+1}.png"
