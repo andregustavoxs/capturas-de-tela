@@ -49,7 +49,19 @@ async def manipulate_twitter(page: Page, original_data: Dict, manipulation_type:
     data = original_data.copy()
 
     if manipulation_type == "metrics_change":
-        # Alterar métricas (±20-50%)
+        """
+        Altera as métricas (±20-50%)
+        Quando menor que 1,0: diminui os valores originais
+        Quando maior que 1,0: aumenta os valores originais
+        Exemplo práticos:
+        1. Fator = 0,5 (redução máxima de 50%)
+        - Tweet original: 1000 curtidas → Tweet manipulado: 500 curtidas
+        - Tweet original: 200 retweets → Tweet manipulado: 100 retweets
+        2. Fator = 1,5 (aumento máximo de 50%)
+        - Tweet original: 1000 curtidas → Tweet manipulado: 1500 curtidas
+        - Tweet original: 500 visualizações → Tweet manipulado: 750 visualizações
+        """
+
         factor = random.uniform(0.5, 1.5)
         data['like_count'] = int(data['like_count'] * factor)
         data['retweet_count'] = int(data['retweet_count'] * factor)
@@ -150,6 +162,22 @@ async def manipulate_instagram(page: Page, original_data: Dict, manipulation_typ
         data['username'] = generate_username(data['name']).replace('@', '')
 
     elif manipulation_type == "combined":
+        # Observação: Ideia descartada para simplificar.
+        """
+         Altera as métricas (±30%)
+         Quando factor < 1.0: diminui os valores originais
+         Quando factor > 1.0: aumenta os valores originais
+
+         Exemplos práticos:
+         1. Se factor = 0.7 (redução máxima de 30%):
+            - Post original: 1000 curtidas → Post manipulado: 700 curtidas
+
+         2. Se factor = 1.3 (aumento máximo de 30%):
+            - Post original: 1000 curtidas → Post manipulado: 1300 curtidas
+
+         Esta variação de ±30% é mais sutil que a usada na manipulação "metrics_change" (±50%),
+         tornando as alterações menos detectáveis.
+         """
         factor = random.uniform(0.7, 1.3)
         data['like_count'] = int(data['like_count'] * factor)
         # Garantir que a caption seja diferente da original
@@ -227,6 +255,7 @@ async def manipulate_whatsapp(page: Page, original_data: Dict, manipulation_type
         pass
 
     elif manipulation_type == "combined":
+        # Ideia Descartada
         data['contact_name'] = fake.name()
         data['initials'] = get_initials(data['contact_name'])
         # Garantir que as mensagens sejam diferentes das originais
